@@ -1,25 +1,92 @@
-import logo from './logo.svg';
-import './App.css';
+import React, {useContext, useState} from "react";
+import './Main.css'
+import { CodeBlock, dracula } from "react-code-blocks";
+
+
+const themes = {
+  light: {
+    name: 'light'
+  },
+  dark: {
+    name: 'dark'
+  }
+};
+
+const ThemeContext  = React.createContext();
+
+
+
+const ThemeContextProvider = props =>{
+  const [mode, setMode] = useState(themes.dark)
+  const value = [mode, setMode]
+
+  return <ThemeContext.Provider value={value} {...props} />
+}
+
 
 function App() {
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ThemeContextProvider >
+      <Main>
+        <Menu/>
+      </Main>
+    </ThemeContextProvider>
+  )
+}
+
+
+
+function Menu() {
+ 
+  const [mode, setMode]  = useContext(ThemeContext)
+
+  const hanlderChangeMode = () =>{
+
+    let theMode = mode.name === themes.dark.name ? themes.light : themes.dark;
+    console.log(theMode);
+    setMode(theMode)
+    return
+
+  }
+  return (
+    <nav>
+     <h1>Dark Mode in React</h1>
+      <div>
+        <label className="switch">
+          <input type="checkbox" onClick={hanlderChangeMode}/>
+          <span className="slider round"></span>
+        </label>
+      </div>
+      <h2>Mode: {mode.name}</h2>
+    </nav>
   );
 }
+
+const Main = ({children}) => {
+  const [mode, setMode]  = useContext(ThemeContext)
+
+  return (
+    <main className={mode.name}>
+      {children}
+
+      <section className="about">
+        <div>
+          <h2>Here is my little project where I use :</h2>
+          <ul>
+            <li>useState</li>
+            <li>useContext</li>
+          </ul>
+        </div>
+      </section>
+      <a href="">Source Code</a>
+    </main>
+  )
+}
+
+
+
+
+
 
 export default App;
