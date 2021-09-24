@@ -1,6 +1,5 @@
 import React, {useContext, useState} from "react";
 import './Main.css'
-import { CodeBlock, dracula } from "react-code-blocks";
 
 
 const themes = {
@@ -77,9 +76,10 @@ const Main = ({children}) => {
             <li>useState</li>
             <li>useContext</li>
           </ul>
+            <a href="https://github.com/ZawojWeb/dark-mode-in-react/blob/master/src/App.js">Code Source</a>
         </div>
       </section>
-      <a href="">Source Code</a>
+   
     </main>
   )
 }
