@@ -1,1 +1,1 @@
-Just simple implementation in React of switch between light and dark mode.
+Just simple implementation of switch between light and dark mode in React.
